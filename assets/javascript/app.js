@@ -51,12 +51,10 @@
 //                  provide option to play again
 //                  
 
+///////////////////////////////////////////////////////////////////
 
 //      reset timer to 30 seconds
 //      start timer
-
-
-
 
 //questions objects held in an array:
 //  x questions
@@ -65,6 +63,8 @@
 //      text strings
 //  1 valid answer
 //      integer
+
+/////////////////////////////////////////////////////////////////////
 
 //ex:
 //  var exampleQuestion = [
