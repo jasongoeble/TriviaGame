@@ -78,13 +78,14 @@
 
 //will probably use a display function that replaces the HTML in a div for both questions and answers
 //will need to create click listeners for each of the answers
+//  change in method so that answers are all using the same class, so 1 click listener
 
-//global variables
+//  global variables
 //  questionNumber = 0;
 //  correctAnswers = 0;
 //  incorrectAnswers = 0;
 
-//  global loop to display questions
+//  global loop to initiate the game
 //  for (z = 0; z < exampleQuestion.length)
 //  {
 //      display(exampleQuestion,questionNumbeR);
@@ -93,6 +94,14 @@
 
 //  when there are no more questions
 //  endGameResults(correctAnswers, incorrectAnswers);
+
+// function endGameResults(correctAnswers, incorrectAnswers)
+//{
+//  here is where the code will go to display the total correct
+//  and incorrect answers, as well as their successful percentage.
+//  will need to include a way to re-start, possibly just reset questionNumber to 0?
+//}
+
 
 //  this function requires the question object and the question number
 //  function display(exampleQuestion, questionNumber)
@@ -139,7 +148,7 @@
 
 //}
 
-//  //functional click listeners for all questions done by class
+//  //functional click listeners for all answers done by class
 //  $(".anAnswer").click(function()
 //  {
 
@@ -163,7 +172,7 @@
 //          need to set global timer to 10 seconds and start timer
 
 //          questionNumber++;
-//          notRightAnswer = "<p> You chose the wrong answer.  The correct answer was: "+exampleQuestion[questionNumber].qAnswers[exampleQuestion.correctAnswer]+".</p>";
+//          notRightAnswer = "<p> You chose the wrong answer.  The correct answer was: "+exampleQuestion[questionNumber].qAnswers[exampleQuestion[questionNumber].correctAnswer]+".</p>";
 //          $("answerDisplay").html(notRightAnswer);
 
 
