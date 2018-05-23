@@ -77,10 +77,11 @@
 //  ]
 
 //  global variables
-//  questionNumber = 0;
-//  correctAnswers = 0;
-//  incorrectAnswers = 0;
-//  var notRightAnswer;
+//  var questionNumber = 0;
+//  var correctAnswers = 0;
+//  var incorrectAnswers = 0;
+//  var notRightAnswerotRightAnswer;
+//  var myTimer;
 
 
 //  for (z=0; z<exampleQuestion.length; z++)
@@ -89,7 +90,7 @@
 //      reset();
 
 //      sets maximum waiting duration for an answer
-//      setTimeout(outOfTime, (1000*30));
+//      myTimer = setTimeout(outOfTime, (1000*30));
 
 //      starts the question countup display
 //      startQuestion();
@@ -99,12 +100,13 @@
 //      {
 //          display(exampleQuestion, questionNumber);
 
-//      } while (setTimeout !=);
+//      } while (myTimer !=);
 //  }
 
 //  function outOfTime()
 //  {
-//      clearTimeout();
+//      clearTimeout(myTimer);
+
 //      notRightAnswer = "<p> You ran out of time.  The correct answer was: "+exampleQuestion[questionNumber].qAnswers[exampleQuestion[questionNumber].correctAnswer]+".</p>";
 //      $("answerDisplay").html(notRightAnswer);
 //      questionIncriment();
@@ -114,9 +116,9 @@
 //      startDelay();
 
 //      wait for 10 seconds
-//      setTimeout(questionIncriment, (1000*10));
+//      myTimer = setTimeout(questionIncriment, (1000*10));
 //      stop();
-//      clearTimeout();
+//      clearTimeout(myTimer);
 
 //  }
 
@@ -181,7 +183,7 @@
 
 //          startDelay();
 //          wait 10 seconds
-//          setTimeout(questionIncriment, (1000*10));
+//          myTimer = setTimeout(questionIncriment, (1000*10));
 //          stop();
 //      }
 
@@ -193,7 +195,7 @@
 
 //          startDelay()
 //          wait 10 seconds
-//          setTimeout(questionIncriment, (1000*10));
+//          myTimer = setTimeout(questionIncriment, (1000*10));
 //          stop();
 //      }
 //  }
