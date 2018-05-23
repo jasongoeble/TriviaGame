@@ -83,7 +83,7 @@
 //  var notRightAnswerotRightAnswer;
 //  var myTimer;
 
-
+//  function startGame(){
 //  for (z=0; z<exampleQuestion.length; z++)
 //  {
 //      sets display clock to 00:00
@@ -102,6 +102,7 @@
 
 //      } while (myTimer !=);
 //  }
+//}
 
 //  function outOfTime()
 //  {
