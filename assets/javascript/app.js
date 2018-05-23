@@ -76,38 +76,59 @@
 //      }        
 //  ]
 
-//will probably use a display function that replaces the HTML in a div for both questions and answers
-//will need to create click listeners for each of the answers
-//  change in method so that answers are all using the same class, so 1 click listener
-
 //  global variables
 //  questionNumber = 0;
 //  correctAnswers = 0;
 //  incorrectAnswers = 0;
+//  var notRightAnswer;
 
-//  global loop to initiate the game
-//  for (z = 0; z < exampleQuestion.length)
+
+//  for (z=0; z<exampleQuestion.length; z++)
 //  {
-//      display(exampleQuestion,questionNumbeR);
-//      z++
+//      sets display clock to 00:00
+//      reset();
+
+//      sets maximum waiting duration for an answer
+//      setTimeout(outOfTime, (1000*30));
+
+//      starts the question countup display
+//      startQuestion();
+
+//      so long as the maximum wait time hasn't been met display a question
+//      do
+//      {
+//          display(exampleQuestion, questionNumber);
+
+//      } while (setTimeout !=);
 //  }
 
-//  when there are no more questions
-//  endGameResults(correctAnswers, incorrectAnswers);
+//  function outOfTime()
+//  {
+//      clearTimeout();
+//      notRightAnswer = "<p> You ran out of time.  The correct answer was: "+exampleQuestion[questionNumber].qAnswers[exampleQuestion[questionNumber].correctAnswer]+".</p>";
+//      $("answerDisplay").html(notRightAnswer);
+//      questionIncriment();
 
-// function endGameResults(correctAnswers, incorrectAnswers)
-//{
-//  here is where the code will go to display the total correct
-//  and incorrect answers, as well as their successful percentage.
-//  will need to include a way to re-start, possibly just reset questionNumber to 0?
-//}
+//      stop();
+//      reset();
+//      startDelay();
+
+//      wait for 10 seconds
+//      setTimeout(questionIncriment, (1000*10));
+//      stop();
+//      clearTimeout();
+
+//  }
+
+//  function questionIncriment()
+//  {
+//      questionNumber++;
+//  }
 
 
 //  this function requires the question object and the question number
 //  function display(exampleQuestion, questionNumber)
 //  {
-
-//      need to call global timer and set to 30 seconds and start
 
 //      //variable (string) to hold the question to display
 //      var currentQuestion = exampleQuestion[questionNumber].question;
@@ -137,10 +158,7 @@
 //          anAnswer.value(i);
 
 //          //define the class for the answer link/button, will be used to register a click on any answer
-//          anAnswer.addClass(clickAnswer);
-
-//          //if the above line does not work, then the following should:
-//          anAnswer.classList.add("clickAnswer");
+//          anAnswer.addClass("clickAnswer");
 
 //          //show the answer on the page
 //          $("#answerDisplay").append(anAnswer);
@@ -148,33 +166,103 @@
 
 //}
 
-//  //functional click listeners for all answers done by class
+//  //functional click listeners for all answers done by class, limited by timer
+//  
 //  $(".anAnswer").click(function()
 //  {
 
-//      need to stop global timer
-
-//      var notRightAnswer;
+//      clearTimeout();
+//      stop();
 
 //      if(this.attr("value") === rightAnswer)
 //      {
-
-//          need to set global timer to 10 seconds and start timer
-
-//          questionNumber++;
+//          correctAnswers++;
 //          $("#answerDisplay").html("Congratulations, you chose the right answer!")
 
+//          startDelay();
+//          wait 10 seconds
+//          setTimeout(questionIncriment, (1000*10));
+//          stop();
 //      }
 
 //      else 
 //      {
-
-//          need to set global timer to 10 seconds and start timer
-
-//          questionNumber++;
+//          incorrectAnswers++;
 //          notRightAnswer = "<p> You chose the wrong answer.  The correct answer was: "+exampleQuestion[questionNumber].qAnswers[exampleQuestion[questionNumber].correctAnswer]+".</p>";
 //          $("answerDisplay").html(notRightAnswer);
 
-
+//          startDelay()
+//          wait 10 seconds
+//          setTimeout(questionIncriment, (1000*10));
+//          stop();
 //      }
 //  }
+//  
+
+//  when there are no more questions
+//  endGameResults(correctAnswers, incorrectAnswers);
+
+//  function endGameResults(correctAnswers, incorrectAnswers)
+//  {
+//  here is where the code will go to display the total correct
+//  and incorrect answers, as well as their successful percentage.
+//  will need to include a way to re-start, possibly just reset questionNumber to 0?
+//  }
+
+var intervalId;
+
+// resets the timer, sets time display to 0 seconds
+// function reset() 
+//{
+//  time = 0;
+//  $("#display").text("00:00");
+// }
+
+//this functions starts the 30 second question timer
+// function startQuestion() 
+// {
+//  intervalId = setInterval(count, (1000*30);
+// }
+
+//this function starts the 10 second between question timer
+// function startDelay() 
+// {
+//  intervalId = setInterval(count, (1000*10);
+// }
+
+//this function stops the timer, and will be used in conjunction with setting a new timer duration
+// function stop() 
+// {
+//  console.log("stopping");
+//  clearInterval(intervalId);
+// }
+
+//this function incriments the counter and updates the timerDisplay field on the page
+// function count() {
+
+//   time++;
+//   var converted = timeConverter(time);
+//   $("#timeDisplay").text(converted);
+
+// }
+
+//this function converts the millisecond duration to display as mm:ss
+// function timeConverter(t) {
+
+//   var minutes = Math.floor(t / 60);
+//   var seconds = t - (minutes * 60);
+
+//   if (seconds < 10) {
+//     seconds = "0" + seconds;
+//   }
+
+//   if (minutes === 0) {
+//     minutes = "00";
+//   }
+//   else if (minutes < 10) {
+//     minutes = "0" + minutes;
+//   }
+
+//   return minutes + ":" + seconds;
+// }
+
