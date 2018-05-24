@@ -157,8 +157,8 @@ function startGame()
     }
 
     //when the game ends re-display the start game button
-    var b = document.getElementById("starter");
-    b.style = "block"
+    //var b = document.getElementById("starter");
+    //b.style = "block"
 }
 
 function outOfTime()
