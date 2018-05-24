@@ -77,195 +77,246 @@
 //  ]
 
 //  global variables
-//  var questionNumber = 0;
-//  var correctAnswers = 0;
-//  var incorrectAnswers = 0;
-//  var notRightAnswerotRightAnswer;
-//  var myTimer;
+$(document).ready(function() {
 
-//  function startGame(){
-//  for (z=0; z<exampleQuestion.length; z++)
-//  {
-//      sets display clock to 00:00
-//      reset();
+var questionNumber = 0;
+var correctAnswers = 0;
+var incorrectAnswers = 0;
+var notRightAnswerotRightAnswer;
+var myTimer;
 
-//      sets maximum waiting duration for an answer
-//      myTimer = setTimeout(outOfTime, (1000*30));
+var exampleQuestion =
+{
+    Asks:[
+        {
+            questiion: "Which of the following groups did Eddie Veder star as lead vocals?",
+            qAnswers: ["Nirvana","Pearl Jam","Sound Garden","Green Day"],
+            correctAnswer:1, 
+        },
+        {
+            questiion: "Which of the following movies was released in 1994?",
+            qAnswers: ["Pulp Fiction","Jurassic Park","Toy Story","The Matrix"],
+            correctAnswer:0, 
+        },
+        {
+            questiion: "Which of the following movies was Tom Hanks not in?",
+            qAnswers: ["Forrest Gump","A League of Their Own","The Green Mile","Silence of the Lambs"],
+            correctAnswer:3, 
+        },
+        {
+            questiion: "What year was Quentin Tarantin's movie Django Unchained released?",
+            qAnswers: ["2010","2011","2012","2013"],
+            correctAnswer:2, 
+        },
+        {
+            questiion: "Which of the following groups has had the largest concert attendance?",
+            qAnswers: ["Rod Stewart","AC/DC","New York Philharmonic","Garth Brooks"],
+            correctAnswer:0, 
+        }
+    ]
+};
 
-//      starts the question countup display
-//      startQuestion();
+$("#startGame").click(function()
+{
+    startgame();
+})
 
-//      so long as the maximum wait time hasn't been met display a question
-//      do
-//      {
-//          display(exampleQuestion, questionNumber);
 
-//      } while (myTimer !=);
-//  }
+//function playGameQuestion()
+//{
+    //this functionality should hid the start game button once clicked
+    //var a = document.getElementById("starter");
+    //if (a.style.display === "none") {
+    //    a.style.display = "block";
+    //} else {
+    //    a.style.display = "none";
+    //}
+
+    //startGame();
 //}
 
-//  function outOfTime()
-//  {
-//      clearTimeout(myTimer);
+function startGame()
+{
+    for (z=0; z<exampleQuestion.length; z++)
+    {
+    //      sets display clock to 00:00
+        reset();
 
-//      notRightAnswer = "<p> You ran out of time.  The correct answer was: "+exampleQuestion[questionNumber].qAnswers[exampleQuestion[questionNumber].correctAnswer]+".</p>";
-//      $("answerDisplay").html(notRightAnswer);
-//      questionIncriment();
+    //      sets maximum waiting duration for an answer
+        myTimer = setTimeout(outOfTime, (1000*30));
 
-//      stop();
-//      reset();
-//      startDelay();
+    //      starts the question countup display
+        startQuestion();
+
+    //      so long as the maximum wait time hasn't been met display a question
+        do
+        {
+            display(exampleQuestion, questionNumber);
+
+        } while (myTimer = false);
+    }
+
+    //when the game ends re-display the start game button
+    var b = document.getElementById("starter");
+    b.style = "block"
+}
+
+function outOfTime()
+{
+    clearTimeout(myTimer);
+
+    incorrectAnswers++;
+    notRightAnswer = "<p> You ran out of time.  The correct answer was: "+exampleQuestion.Asks[questionNumber].qAnswers[exampleQuestion.Asks[questionNumber].correctAnswer]+".</p>";
+    $("answerDisplay").html(notRightAnswer);
+    $("#totalIncorrect").html("<h2>Incorrect Answers: "+incorrectAnswers+"</h2>");
+    questionIncriment();
+
+    stop();
+    reset();
+    startDelay();
 
 //      wait for 10 seconds
-//      myTimer = setTimeout(questionIncriment, (1000*10));
-//      stop();
-//      clearTimeout(myTimer);
+    myTimer = setTimeout(questionIncriment, (1000*10));
+    stop();
+    clearTimeout(myTimer);
 
-//  }
+}
 
-//  function questionIncriment()
-//  {
-//      questionNumber++;
-//  }
+function questionIncriment()
+{
+    questionNumber++;
+}
 
 
 //  this function requires the question object and the question number
-//  function display(exampleQuestion, questionNumber)
-//  {
-
+function display(exampleQuestion, questionNumber)
+{
 //      //variable (string) to hold the question to display
-//      var currentQuestion = exampleQuestion[questionNumber].question;
-//      currentQuestion = "<p>"+currentQuestion+"</p>";
+    var currentQuestion = exampleQuestion.Asks[questionNumber].question;
+    currentQuestion = "<h2>"+currentQuestion+"</h2>";
 
 //      //variable (array) to hold the possible answers
-//      var answerLinks = exampleQuestion[questionNumber].qAnswers;
+    var answerLinks = exampleQuestion.Asks[questionNumber].qAnswers;
 
 //      //variable (int) to hold the correct answer integer value
-//      var rightAnswer = exampleQuestion[questionNumber].correctAnswer;
+    var rightAnswer = exampleQuestion.Asks[questionNumber].correctAnswer;
 //
 //      //replaces all html in the div with id=questionDisplay 
-//      $("#questionDisplay").html(currentQuestion);
+    $("#questionDisplay").html(currentQuestion);
 
 //      //clears the html content in the div with id=answerDisplay, just in case its not empty
-//      $("answerDisplay").html("");
+    $("#answerDisplay").html("<h2>Possible Answers:</h2>");
 
 //      //loop to append answers to the page
-//      for (i = 0; i < answerLinks.length; i++)
-//      {
-//          var anAnswer;
+    for (i = 0; i < answerLinks.length; i++)
+    {
+        var anAnswer;
 
 //          //define the text for the link, which is itself also the link/button
-//          anAnswer.text(answerLinks[i]);
+        anAnswer.text(answerLinks[i]);
 
 //          //define the integer value for the link/button
-//          anAnswer.value(i);
+        anAnswer.value(i);
 
 //          //define the class for the answer link/button, will be used to register a click on any answer
-//          anAnswer.addClass("clickAnswer");
+        anAnswer.addClass("clickAnswer");
 
 //          //show the answer on the page
-//          $("#answerDisplay").append(anAnswer);
-//      }
+        $("#answerDisplay").append("<h3>"+anAnswer+"</h3>");
+    }
 
-//}
+}
 
 //  //functional click listeners for all answers done by class, limited by timer
 //  
-//  $(".anAnswer").click(function()
-//  {
+$(".anAnswer").click(function()
+{
+    clearTimeout();
+    stop();
 
-//      clearTimeout();
-//      stop();
-
-//      if(this.attr("value") === rightAnswer)
-//      {
-//          correctAnswers++;
-//          $("#answerDisplay").html("Congratulations, you chose the right answer!")
-
-//          startDelay();
+    if(this.attr("value") === rightAnswer)
+    {
+        correctAnswers++;
+        $("#answerDisplay").html("<h2>Congratulations, you chose the right answer!</h2>");
+        $("#totalCorrect").html("<h2>Correct Answers: "+correctAnswers+"</h2>");
+        startDelay();
 //          wait 10 seconds
-//          myTimer = setTimeout(questionIncriment, (1000*10));
-//          stop();
-//      }
+        myTimer = setTimeout(questionIncriment, (1000*10));
+        stop();
+    }
 
-//      else 
-//      {
-//          incorrectAnswers++;
-//          notRightAnswer = "<p> You chose the wrong answer.  The correct answer was: "+exampleQuestion[questionNumber].qAnswers[exampleQuestion[questionNumber].correctAnswer]+".</p>";
-//          $("answerDisplay").html(notRightAnswer);
-
-//          startDelay()
+    else 
+    {
+        incorrectAnswers++;
+        notRightAnswer = "<h2> You chose the wrong answer.  The correct answer was: "+exampleQuestion.Asks[questionNumber].qAnswers[exampleQuestion.Asks[questionNumber].correctAnswer]+".</h2>";
+        $("#answerDisplay").html(notRightAnswer);
+        $("#totalIncorrect").html("<h2>Incorrect Answers: "+incorrectAnswers+"</h2>");
+        startDelay();
 //          wait 10 seconds
-//          myTimer = setTimeout(questionIncriment, (1000*10));
-//          stop();
-//      }
-//  }
+        myTimer = setTimeout(questionIncriment, (1000*10));
+        stop();
+    }
+})
 //  
-
-//  when there are no more questions
-//  endGameResults(correctAnswers, incorrectAnswers);
-
-//  function endGameResults(correctAnswers, incorrectAnswers)
-//  {
-//  here is where the code will go to display the total correct
-//  and incorrect answers, as well as their successful percentage.
-//  will need to include a way to re-start, possibly just reset questionNumber to 0?
-//  }
 
 var intervalId;
 
 // resets the timer, sets time display to 0 seconds
-// function reset() 
-//{
-//  time = 0;
-//  $("#display").text("00:00");
-// }
+function reset() 
+{
+    time = 0;
+    $("#timedisplay").text("00:00");
+}
 
 //this functions starts the 30 second question timer
-// function startQuestion() 
-// {
-//  intervalId = setInterval(count, (1000*30);
-// }
+function startQuestion() 
+{
+    intervalId = setInterval(count, (1000*30));
+}
 
 //this function starts the 10 second between question timer
-// function startDelay() 
-// {
-//  intervalId = setInterval(count, (1000*10);
-// }
+function startDelay() 
+{
+    intervalId = setInterval(count, (1000*10));
+}
 
 //this function stops the timer, and will be used in conjunction with setting a new timer duration
-// function stop() 
-// {
-//  console.log("stopping");
-//  clearInterval(intervalId);
-// }
+function stop() 
+{
+    //console.log("stopping");
+    clearInterval(intervalId);
+}
 
 //this function incriments the counter and updates the timerDisplay field on the page
-// function count() {
-
-//   time++;
-//   var converted = timeConverter(time);
-//   $("#timeDisplay").text(converted);
-
-// }
+function count() 
+{
+    time++;
+    var converted = timeConverter(time);
+    $("#timeDisplay").text(converted);
+}
 
 //this function converts the millisecond duration to display as mm:ss
-// function timeConverter(t) {
+function timeConverter(t) 
+{
 
-//   var minutes = Math.floor(t / 60);
-//   var seconds = t - (minutes * 60);
+    var minutes = Math.floor(t / 60);
+    var seconds = t - (minutes * 60);
 
-//   if (seconds < 10) {
-//     seconds = "0" + seconds;
-//   }
+    if (seconds < 10) 
+    {
+        seconds = "0" + seconds;
+    }
 
-//   if (minutes === 0) {
-//     minutes = "00";
-//   }
-//   else if (minutes < 10) {
-//     minutes = "0" + minutes;
-//   }
+    if (minutes === 0) 
+    {
+        minutes = "00";
+    }
+    else if (minutes < 10) 
+    {
+        minutes = "0" + minutes;
+    }
 
-//   return minutes + ":" + seconds;
-// }
+    return minutes + ":" + seconds;
+}
 
+});
