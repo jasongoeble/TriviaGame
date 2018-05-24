@@ -120,7 +120,7 @@ var exampleQuestion =
 
 $("#starting").click(function()
 {
-    startGame();
+    startGame(exampleQuestion,QuestionNumber);
 })
 
 
@@ -169,7 +169,7 @@ function outOfTime()
 
     incorrectAnswers++;
     notRightAnswer = "<p> You ran out of time.  The correct answer was: "+exampleQuestion.Asks[questionNumber].qAnswers[exampleQuestion.Asks[questionNumber].correctAnswer]+".</p>";
-    $("answerDisplay").html(notRightAnswer);
+    $("#answerDisplay").html(notRightAnswer);
     $("#totalIncorrect").html("<h2>Incorrect Answers: "+incorrectAnswers+"</h2>");
     questionIncriment();
 
@@ -203,6 +203,8 @@ function display(exampleQuestion, questionNumber,rightAnswer)
 //      //variable (int) to hold the correct answer integer value
     rightAnswer = exampleQuestion.Asks[questionNumber].correctAnswer;
 //
+//  //declare the anAnswer variable used in the for loop
+    var anAnswer;
 //      //replaces all html in the div with id=questionDisplay 
     $("#questionDisplay").html(currentQuestion);
 
@@ -212,8 +214,6 @@ function display(exampleQuestion, questionNumber,rightAnswer)
 //      //loop to append answers to the page
     for (i = 0; i < answerLinks.length; i++)
     {
-        var anAnswer;
-
 //          //define the text for the link, which is itself also the link/button
         anAnswer.text(answerLinks[i]);
 
@@ -231,7 +231,7 @@ function display(exampleQuestion, questionNumber,rightAnswer)
 
 //  //functional click listeners for all answers done by class, limited by timer
 //  
-$(".anAnswer").click(function()
+$(".clickAnswer").click(function()
 {
     clearTimeout();
     stop();
