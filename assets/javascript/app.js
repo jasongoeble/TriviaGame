@@ -91,27 +91,27 @@ var exampleQuestion =
 {
     Asks:[
         {
-            questiion: "Which of the following groups did Eddie Veder star as lead vocals?",
+            question: "Which of the following groups did Eddie Veder star as lead vocals?",
             qAnswers: ["Nirvana","Pearl Jam","Sound Garden","Green Day"],
             correctAnswer:1, 
         },
         {
-            questiion: "Which of the following movies was released in 1994?",
+            question: "Which of the following movies was released in 1994?",
             qAnswers: ["Pulp Fiction","Jurassic Park","Toy Story","The Matrix"],
             correctAnswer:0, 
         },
         {
-            questiion: "Which of the following movies was Tom Hanks not in?",
+            question: "Which of the following movies was Tom Hanks not in?",
             qAnswers: ["Forrest Gump","A League of Their Own","The Green Mile","Silence of the Lambs"],
             correctAnswer:3, 
         },
         {
-            questiion: "What year was Quentin Tarantin's movie Django Unchained released?",
+            question: "What year was Quentin Tarantin's movie Django Unchained released?",
             qAnswers: ["2010","2011","2012","2013"],
             correctAnswer:2, 
         },
         {
-            questiion: "Which of the following groups has had the largest concert attendance?",
+            question: "Which of the following groups has had the largest concert attendance?",
             qAnswers: ["Rod Stewart","AC/DC","New York Philharmonic","Garth Brooks"],
             correctAnswer:0, 
         }
@@ -191,7 +191,7 @@ function questionIncriment()
 
 
 //  this function requires the question object and the question number
-function display(exampleQuestion, questionNumber)
+function display(exampleQuestion, questionNumber,rightAnswer)
 {
 //      //variable (string) to hold the question to display
     var currentQuestion = exampleQuestion.Asks[questionNumber].question;
