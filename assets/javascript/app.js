@@ -139,7 +139,7 @@ $("#starting").click(function()
 
 function startGame(exampleQuestion,questionNumber)
 {
-    for (z=0; z<exampleQuestion.length; z++)
+    for (z=0; z<exampleQuestion.Asks.length; z++)
     {
     //      sets display clock to 00:00
         reset();
@@ -175,7 +175,7 @@ function outOfTime()
 
     stop();
     reset();
-    startDelay();
+    //startDelay();
 
 //      wait for 10 seconds
     myTimer = setTimeout(questionIncriment, (1000*10));
@@ -241,7 +241,7 @@ $(".clickAnswer").click(function()
         correctAnswers++;
         $("#answerDisplay").html("<h2>Congratulations, you chose the right answer!</h2>");
         $("#totalCorrect").html("<h2>Correct Answers: "+correctAnswers+"</h2>");
-        startDelay();
+        //startDelay();
 //          wait 10 seconds
         myTimer = setTimeout(questionIncriment, (1000*10));
         stop();
@@ -253,7 +253,7 @@ $(".clickAnswer").click(function()
         notRightAnswer = "<h2> You chose the wrong answer.  The correct answer was: "+exampleQuestion.Asks[questionNumber].qAnswers[exampleQuestion.Asks[questionNumber].correctAnswer]+".</h2>";
         $("#answerDisplay").html(notRightAnswer);
         $("#totalIncorrect").html("<h2>Incorrect Answers: "+incorrectAnswers+"</h2>");
-        startDelay();
+        //startDelay();
 //          wait 10 seconds
         myTimer = setTimeout(questionIncriment, (1000*10));
         stop();
