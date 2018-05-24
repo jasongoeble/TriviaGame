@@ -139,7 +139,7 @@ $("#starting").click(function()
 
 function startGame(exampleQuestion,questionNumber)
 {
-    for (z=0; z<exampleQuestion.Ask.length; z++)
+    for (z=0; z<exampleQuestion.length; z++)
     {
     //      sets display clock to 00:00
         reset();
