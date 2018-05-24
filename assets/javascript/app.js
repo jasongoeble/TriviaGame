@@ -82,8 +82,10 @@ $(document).ready(function() {
 var questionNumber = 0;
 var correctAnswers = 0;
 var incorrectAnswers = 0;
+var rightAnswer;
 var notRightAnswerotRightAnswer;
 var myTimer;
+var intervalId;
 
 var exampleQuestion =
 {
@@ -116,9 +118,9 @@ var exampleQuestion =
     ]
 };
 
-$("#startGame").click(function()
+$("#starting").click(function()
 {
-    startgame();
+    startGame();
 })
 
 
@@ -135,7 +137,7 @@ $("#startGame").click(function()
     //startGame();
 //}
 
-function startGame()
+function startGame(exampleQuestion,questionNumber)
 {
     for (z=0; z<exampleQuestion.length; z++)
     {
@@ -199,7 +201,7 @@ function display(exampleQuestion, questionNumber)
     var answerLinks = exampleQuestion.Asks[questionNumber].qAnswers;
 
 //      //variable (int) to hold the correct answer integer value
-    var rightAnswer = exampleQuestion.Asks[questionNumber].correctAnswer;
+    rightAnswer = exampleQuestion.Asks[questionNumber].correctAnswer;
 //
 //      //replaces all html in the div with id=questionDisplay 
     $("#questionDisplay").html(currentQuestion);
@@ -256,10 +258,8 @@ $(".anAnswer").click(function()
         myTimer = setTimeout(questionIncriment, (1000*10));
         stop();
     }
-})
+});
 //  
-
-var intervalId;
 
 // resets the timer, sets time display to 0 seconds
 function reset() 
