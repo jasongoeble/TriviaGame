@@ -83,7 +83,7 @@ var questionNumber = 0;
 var correctAnswers = 0;
 var incorrectAnswers = 0;
 var rightAnswer;
-var notRightAnswerotRightAnswer;
+var notRightAnswer;
 var myTimer;
 var intervalId;
 
@@ -120,7 +120,8 @@ var exampleQuestion =
 
 $("#starting").click(function()
 {
-    startGame(exampleQuestion,questionNumber);
+    questionNumber = 0;
+    startGame(exampleQuestion,questionNumber, rightAnswer);
 });
 
 
@@ -137,7 +138,7 @@ $("#starting").click(function()
     //startGame();
 //}
 
-function startGame(exampleQuestion,questionNumber)
+function startGame(exampleQuestion, questionNumber, rightAnswer)
 {
     for (z=0; z<exampleQuestion.Asks.length; z++)
     {
@@ -153,7 +154,7 @@ function startGame(exampleQuestion,questionNumber)
     //      so long as the maximum wait time hasn't been met display a question
         do
         {
-            display(exampleQuestion, questionNumber);
+            display(exampleQuestion, questionNumber, rightAnswer);
 
         } while (myTimer = false);
     }
@@ -166,85 +167,115 @@ function startGame(exampleQuestion,questionNumber)
 function outOfTime()
 {
     clearTimeout(myTimer);
+    reset();
 
     incorrectAnswers++;
-    notRightAnswer = "<p> You ran out of time.  The correct answer was: "+exampleQuestion.Asks[questionNumber].qAnswers[exampleQuestion.Asks[questionNumber].correctAnswer]+".</p>";
-    $("#answerDisplay").html(notRightAnswer);
+    var correct = exampleQuestion.Asks[questionNumber].correctAnswer;
+    notRightAnswer = "<p> You ran out of time.  The correct answer was: "+exampleQuestion.Asks[questionNumber].qAnswers[correct]+".";
     $("#totalIncorrect").html("<h2>Incorrect Answers: "+incorrectAnswers+"</h2>");
     questionIncriment();
 
-    stop();
-    reset();
-    //startDelay();
-
 //      wait for 10 seconds
     myTimer = setTimeout(questionIncriment, (1000*10));
-    stop();
+
     clearTimeout(myTimer);
+
+    //recall the display function
+    display(exampleQuestion, questionNumber, rightAnswer);
 
 }
 
 function questionIncriment()
 {
     questionNumber++;
+
 }
 
+//  game over function
+function gameEnd()
+{
+    clearTimeout(myTimer);
+    reset();
+    $("#questionDisplay").html("");
+    $("#answerDisplay").html("<h2>The game is over.  If you would like to play again please press the 'Start Game' button.</h2>");
+}
 
 //  this function requires the question object and the question number
 function display(exampleQuestion, questionNumber, rightAnswer)
 {
-//      //variable (string) to hold the question to display
-    var currentQuestion = exampleQuestion.Asks[questionNumber].question;
-    currentQuestion = "<h2>"+currentQuestion+"</h2>";
-
-//      //variable (array) to hold the possible answers
-    var answerLinks = exampleQuestion.Asks[questionNumber].qAnswers;
-
-//      //variable (int) to hold the correct answer integer value
-    rightAnswer = exampleQuestion.Asks[questionNumber].correctAnswer;
-//
-//  //declare the anAnswer variable used in the for loop
-    var anAnswer;
-//      //replaces all html in the div with id=questionDisplay 
-    $("#questionDisplay").html(currentQuestion);
-
-//      //clears the html content in the div with id=answerDisplay, just in case its not empty
-    $("#answerDisplay").html("<h2>Possible Answers:</h2>");
-
-//      //loop to append answers to the page
-    for (i = 0; i < answerLinks.length; i++)
+    if(questionNumber < exampleQuestion.Asks.length)
     {
-//          //define the text for the link, which is itself also the link/button
-        anAnswer.text(answerLinks[i]);
+        //      //variable (string) to hold the question to display
+        var currentQuestion = exampleQuestion.Asks[questionNumber].question;
+        currentQuestion = "<h2>"+currentQuestion+"</h2>";
 
-//          //define the integer value for the link/button
-        anAnswer.value(i);
+    //      //variable (array) to hold the possible answers
+        var answerLinks = exampleQuestion.Asks[questionNumber].qAnswers;
 
-//          //define the class for the answer link/button, will be used to register a click on any answer
-        anAnswer.addClass("clickAnswer");
+    //      //variable (int) to hold the correct answer integer value
+        rightAnswer = exampleQuestion.Asks[questionNumber].correctAnswer;
+    //
+        console.log("Right Answer Num: "+rightAnswer);
+    //      //replaces all html in the div with id=questionDisplay 
+        $("#questionDisplay").html(currentQuestion);
 
-//          //show the answer on the page
-        $("#answerDisplay").append("<h3>"+anAnswer+"</h3>");
+    //      //clears the html content in the div with id=answerDisplay, just in case its not empty
+        $("#answerDisplay").html("<h2>Possible Answers:</h2>");
+
+        //declare the anAnswer variable used in the for loop
+        var anAnswer;
+        var numberVal = 0;
+        var possibleAnswer;
+        
+    //      //loop to append answers to the page
+        for (i = 0; i < answerLinks.length; i++)
+        {        
+            possibleAnswer = answerLinks[i];
+    //      //define the text for the link, which is itself also the link/button
+            console.log(possibleAnswer);
+            console.log(numberVal);
+            //define the answer element text, value, and class
+            anAnswer = $("<button>").text(possibleAnswer).val(numberVal).addClass("clickAnswer");
+            
+            //incriments the numberVal variable so that on the subsequent intterations of the loop it assigns unique number values
+            numberVal++;
+
+            //show the answer on the page
+            $("#answerDisplay").append(anAnswer);
+            $("#answerDisplay").append("<br><br>");;
+        }
     }
-
+    else
+    {
+        gameEnd();
+    }
 }
 
 //  //functional click listeners for all answers done by class, limited by timer
 //  
-$(".clickAnswer").click(function()
+$("body").on("click",".clickAnswer", function()
 {
-    clearTimeout();
-    stop();
-
-    if(this.attr("value") === rightAnswer)
+    var userChoice = $(this).attr("val");
+    console.log(userChoice);
+    //cancel the 30 second timer.....but it doesn't appear to be working
+    clearTimeout(myTimer);
+    //reset the display clock to 00:00......but it doesn't appear to be working
+    reset();
+    //this.val is DEFINITELY not passing the value that is assigned to the button
+    console.log("This value: "+this.val);
+    if(userChoice === rightAnswer)
     {
         correctAnswers++;
         $("#answerDisplay").html("<h2>Congratulations, you chose the right answer!</h2>");
         $("#totalCorrect").html("<h2>Correct Answers: "+correctAnswers+"</h2>");
+        questionIncriment();
+
         //startDelay();
 //          wait 10 seconds
         myTimer = setTimeout(questionIncriment, (1000*10));
-        stop();
+
+        //recall the display function
+        display(exampleQuestion, questionNumber, rightAnswer);
     }
 
     else 
@@ -253,12 +284,17 @@ $(".clickAnswer").click(function()
         notRightAnswer = "<h2> You chose the wrong answer.  The correct answer was: "+exampleQuestion.Asks[questionNumber].qAnswers[exampleQuestion.Asks[questionNumber].correctAnswer]+".</h2>";
         $("#answerDisplay").html(notRightAnswer);
         $("#totalIncorrect").html("<h2>Incorrect Answers: "+incorrectAnswers+"</h2>");
+        questionIncriment();
+
         //startDelay();
 //          wait 10 seconds
         myTimer = setTimeout(questionIncriment, (1000*10));
-        stop();
+
+        //recall the display function
+        display(exampleQuestion, questionNumber, rightAnswer);
     }
 });
+
 //  
 
 // resets the timer, sets time display to 0 seconds
@@ -271,21 +307,23 @@ function reset()
 //this functions starts the 30 second question timer
 function startQuestion() 
 {
-    intervalId = setInterval(count, (1000*30));
+    //intervalId = setInterval(count, (1000*30));
+    count(1000*30);
 }
 
 //this function starts the 10 second between question timer
 function startDelay() 
 {
-    intervalId = setInterval(count, (1000*10));
+    //intervalId = setInterval(count, (1000*10));
+    count(1000*10);
 }
 
 //this function stops the timer, and will be used in conjunction with setting a new timer duration
-function stop() 
-{
+//function stop() 
+//{
     //console.log("stopping");
-    clearInterval(intervalId);
-}
+//    clearInterval(intervalId);
+//}
 
 //this function incriments the counter and updates the timerDisplay field on the page
 function count() 
