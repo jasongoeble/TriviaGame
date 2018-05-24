@@ -1,1 +1,28 @@
 
+body 
+{   background-image: url("../images/background.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    line-height: 1.3;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+}
+
+header, h1, h2
+{
+    font-family: Georgia, Times, "Times New Roman", serif;
+}
+
+a:link
+{
+    color: black;
+}
+
+a:visited
+{
+    color: black;
+}
+
+a:active
+{
+    color: black;
+}

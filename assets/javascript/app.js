@@ -76,11 +76,43 @@
 //      }        
 //  ]
 
+//updates as of 6:30pm
+//it was not clear to me initially that the dynamic creation of elements (the questions
+//for this assignment) really requires the use of an html element that inherently
+//has attributes that lend themselves to easy usage.  after working extensively with steve
+//the answers were able to be displayed by using buttons, which carry text, value, and can
+//easily be assigned a class attribute with jQuery.
+
+//after getting the answers to display for the questions it then became yet another monumental
+//feat to retrieve the users choice from the dynamically created elements as well as recognize
+//that the user even clicked an elemennt.  instead of targeting the .click functionality
+//of the buttons (which aren't actually loaded to the html but the window) i had to set the click
+//listeners to the body.  since only one click event can happen at a time in the body it would
+//be feasible to track the click for the buttons.
+
+//though i knew i would need to use this to retrieve the value from the click event, i did not
+//know the right syntax.  after researching it i found i needed to use $(this), but my initial implementation
+//was not correct.  during the 5:30-6:30 time frame on thursday working with steve i somehow accidentally
+//managed to implement the method to retrieve the value from the dynamically created element.
+
+//at this point the user choice of answer is being correctly compared to the stored correct answer.
+//however, my implementation of the count function for displaying a timer on the page is not currently
+//working.  because i'm using setTimeout instead of setInterval it meant that i had to use both
+//just a visual display and a function timeout that wasn't displayed.  currently, once 30 seconds passes the
+//entire game ends.  i have at this point run out of time to track down my error here and fix it.
+
+
+
+
+
+
+
 //  global variables
 $(function() {
 
 var questionNumber = 0;
 var correctAnswers = 0;
+var correct;
 var incorrectAnswers = 0;
 var rightAnswer;
 var notRightAnswer;
@@ -121,13 +153,17 @@ var exampleQuestion =
 $("#starting").click(function()
 {
     questionNumber = 0;
-    startGame(exampleQuestion,questionNumber, rightAnswer);
+    correctAnswers = 0;
+    incorrectAnswers = 0;
+    $("#totalIncorrect").html("<h2>Incorrect Answers: "+incorrectAnswers+"</h2>");
+    $("#totalCorrect").html("<h2>Correct Answers: "+correctAnswers+"</h2>");
+    startGame(exampleQuestion, questionNumber, rightAnswer);
 });
 
 
 //function playGameQuestion()
 //{
-    //this functionality should hid the start game button once clicked
+    //this functionality should hide the start game button once clicked
     //var a = document.getElementById("starter");
     //if (a.style.display === "none") {
     //    a.style.display = "block";
@@ -170,7 +206,7 @@ function outOfTime()
     reset();
 
     incorrectAnswers++;
-    var correct = exampleQuestion.Asks[questionNumber].correctAnswer;
+    correct = exampleQuestion.Asks[questionNumber].correctAnswer;
     notRightAnswer = "<p> You ran out of time.  The correct answer was: "+exampleQuestion.Asks[questionNumber].qAnswers[correct]+".";
     $("#totalIncorrect").html("<h2>Incorrect Answers: "+incorrectAnswers+"</h2>");
     questionIncriment();
@@ -215,7 +251,6 @@ function display(exampleQuestion, questionNumber, rightAnswer)
     //      //variable (int) to hold the correct answer integer value
         rightAnswer = exampleQuestion.Asks[questionNumber].correctAnswer;
     //
-        console.log("Right Answer Num: "+rightAnswer);
     //      //replaces all html in the div with id=questionDisplay 
         $("#questionDisplay").html(currentQuestion);
 
@@ -255,22 +290,19 @@ function display(exampleQuestion, questionNumber, rightAnswer)
 //  
 $("body").on("click",".clickAnswer", function()
 {
-    var userChoice = $(this).attr("val");
-    console.log(userChoice);
     //cancel the 30 second timer.....but it doesn't appear to be working
     clearTimeout(myTimer);
     //reset the display clock to 00:00......but it doesn't appear to be working
     reset();
     //this.val is DEFINITELY not passing the value that is assigned to the button
-    console.log("This value: "+this.val);
-    if(userChoice === rightAnswer)
+    if($(this).val == exampleQuestion.Asks[questionNumber].correctAnswer)
     {
         correctAnswers++;
         $("#answerDisplay").html("<h2>Congratulations, you chose the right answer!</h2>");
         $("#totalCorrect").html("<h2>Correct Answers: "+correctAnswers+"</h2>");
         questionIncriment();
 
-        //startDelay();
+        startDelay();
 //          wait 10 seconds
         myTimer = setTimeout(questionIncriment, (1000*10));
 
@@ -281,7 +313,8 @@ $("body").on("click",".clickAnswer", function()
     else 
     {
         incorrectAnswers++;
-        notRightAnswer = "<h2> You chose the wrong answer.  The correct answer was: "+exampleQuestion.Asks[questionNumber].qAnswers[exampleQuestion.Asks[questionNumber].correctAnswer]+".</h2>";
+        correct = exampleQuestion.Asks[questionNumber].correctAnswer;
+        notRightAnswer = "<h2> You chose the wrong answer.  The correct answer was: "+exampleQuestion.Asks[questionNumber].qAnswers[correct]+".</h2>";
         $("#answerDisplay").html(notRightAnswer);
         $("#totalIncorrect").html("<h2>Incorrect Answers: "+incorrectAnswers+"</h2>");
         questionIncriment();
@@ -328,9 +361,12 @@ function startDelay()
 //this function incriments the counter and updates the timerDisplay field on the page
 function count() 
 {
+    do
+    {
     time++;
     var converted = timeConverter(time);
     $("#timeDisplay").text(converted);
+    } while (time < 30);
 }
 
 //this function converts the millisecond duration to display as mm:ss
