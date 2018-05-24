@@ -77,7 +77,7 @@
 //  ]
 
 //  global variables
-$(document).ready(function() {
+$(function() {
 
 var questionNumber = 0;
 var correctAnswers = 0;
@@ -120,8 +120,8 @@ var exampleQuestion =
 
 $("#starting").click(function()
 {
-    startGame(exampleQuestion,QuestionNumber);
-})
+    startGame(exampleQuestion,questionNumber);
+});
 
 
 //function playGameQuestion()
@@ -139,7 +139,7 @@ $("#starting").click(function()
 
 function startGame(exampleQuestion,questionNumber)
 {
-    for (z=0; z<exampleQuestion.length; z++)
+    for (z=0; z<exampleQuestion.Ask.length; z++)
     {
     //      sets display clock to 00:00
         reset();
@@ -191,7 +191,7 @@ function questionIncriment()
 
 
 //  this function requires the question object and the question number
-function display(exampleQuestion, questionNumber,rightAnswer)
+function display(exampleQuestion, questionNumber, rightAnswer)
 {
 //      //variable (string) to hold the question to display
     var currentQuestion = exampleQuestion.Asks[questionNumber].question;
