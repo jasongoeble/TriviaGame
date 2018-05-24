@@ -137,7 +137,7 @@ $("#starting").click(function()
     //startGame();
 //}
 
-function startGame()
+function startGame(exampleQuestion,questionNumber)
 {
     for (z=0; z<exampleQuestion.Ask.length; z++)
     {
